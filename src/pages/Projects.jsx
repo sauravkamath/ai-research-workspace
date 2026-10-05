@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 function Projects() {
+  const [search, setSearch] = useState("");
   const projects = [
     {
       name: "Medical Image Classification",
@@ -52,8 +55,19 @@ function Projects() {
 
       <div className="projects-list">
         <h2>All Projects</h2>
+        <input
+  type="text"
+  placeholder="Search projects..."
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  className="project-search"
+/>
 
-        {projects.map((project, index) => (
+        {projects
+  .filter((project) =>
+    project.name.toLowerCase().includes(search.toLowerCase())
+  )
+  .map((project, index) => (
           <div className="project-card" key={index}>
             <div className="project-info">
               <h3>{project.name}</h3>
@@ -74,9 +88,16 @@ function Projects() {
               </div>
             </div>
 
-            <button className="view-btn">
-              View
-            </button>
+             <button
+  className="view-btn"
+  onClick={() =>
+    alert(
+      `Project: ${project.name}\nCategory: ${project.category}\nStatus: ${project.status}\nProgress: ${project.progress}%`
+    )
+  }
+>
+  View
+</button>
           </div>
         ))}
       </div>

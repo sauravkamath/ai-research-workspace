@@ -21,7 +21,6 @@ function App() {
           <a>Experiments</a>
           <a>Research Notes</a>
         </nav>
-{currentPage === "projects" && <Projects />}
         <div className="sidebar-bottom">
           <a>Settings</a>
         </div>
@@ -29,7 +28,10 @@ function App() {
 
       {/* Main Content */}
       <main className="main">
-
+{currentPage === "projects" ? (
+  <Projects />
+) : (
+  <>
         {/* Header */}
         <header className="header">
           <div>
@@ -135,9 +137,11 @@ function App() {
           </div>
 
         </section>
-
+        
+</>
+)}
       </main>
-
+ 
     </div>
   );
 }
