@@ -84,7 +84,83 @@ function App() {
           </div>
 
         </section>
+<section className="research-overview">
+  <div className="overview-header">
+    <div>
+      <h2>Research Overview</h2>
+      <p>Monitor your overall research progress.</p>
+    </div>
+  </div>
 
+  <div className="overview-grid">
+    <div className="overview-card">
+      <span>Project Progress</span>
+      <strong>72%</strong>
+      <div className="overview-bar">
+        <div className="overview-fill" style={{ width: "72%" }}></div>
+      </div>
+      <small>8 of 12 projects progressing</small>
+    </div>
+
+    <div className="overview-card">
+      <span>Experiments</span>
+      <strong>46</strong>
+      <small>12 experiments completed this month</small>
+    </div>
+
+    <div className="overview-card">
+      <span>Research Notes</span>
+      <strong>24</strong>
+      <small>6 notes added this week</small>
+    </div>
+  </div>
+</section>
+{/* Quick Actions */}
+<section className="quick-actions">
+  <div className="quick-actions-header">
+    <div>
+      <h2>Quick Actions</h2>
+      <p>Start your next research task.</p>
+    </div>
+  </div>
+
+  <div className="quick-actions-grid">
+    <button
+  className="quick-action-card"
+  onClick={() => setCurrentPage("projects")}
+>
+      <span className="quick-action-icon">＋</span>
+      <div>
+        <strong>New Project</strong>
+        <small>Create a new research project</small>
+      </div>
+    </button>
+
+    <button className="quick-action-card">
+      <span className="quick-action-icon">📊</span>
+      <div>
+        <strong>Analyze Dataset</strong>
+        <small>Explore and analyze your data</small>
+      </div>
+    </button>
+
+    <button className="quick-action-card">
+      <span className="quick-action-icon">🤖</span>
+      <div>
+        <strong>Train Model</strong>
+        <small>Start a machine learning model</small>
+      </div>
+    </button>
+
+    <button className="quick-action-card">
+      <span className="quick-action-icon">🧪</span>
+      <div>
+        <strong>Run Experiment</strong>
+        <small>Launch a new experiment</small>
+      </div>
+    </button>
+  </div>
+</section>
         {/* Recent Projects */}
         <section className="content-card">
 

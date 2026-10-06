@@ -2,7 +2,32 @@ import { useState } from "react";
 
 function Projects() {
   const [search, setSearch] = useState("");
-  const projects = [
+  const [showModal, setShowModal] = useState(false);
+  const [projectName, setProjectName] = useState("");
+const [projectCategory, setProjectCategory] = useState("");
+const [projectDescription, setProjectDescription] = useState("");
+const handleCreateProject = () => {
+  if (!projectName || !projectCategory) {
+    alert("Please enter project name and category");
+    return;
+  }
+
+  const newProject = {
+    name: projectName,
+    category: projectCategory,
+    status: "Active",
+    progress: 0,
+  };
+
+  setProjects([...projects, newProject]);
+
+  setProjectName("");
+  setProjectCategory("");
+  setProjectDescription("");
+  setShowModal(false);
+};
+
+   const [projects, setProjects] = useState([
     {
       name: "Medical Image Classification",
       category: "Computer Vision",
@@ -21,88 +46,145 @@ function Projects() {
       status: "Completed",
       progress: 100,
     },
-  ];
+   ]);
+
+  const filteredProjects = projects.filter((project) =>
+    project.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div className="projects-page">
-      <div className="projects-header">
-        <div>
-          <h1>Research Projects</h1>
-          <p>Manage and track your AI research projects.</p>
-        </div>
+    <>
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h2>Create New Project</h2>
+            <p>Start a new AI research project.</p>
 
-        <button className="new-project-btn">
-          + New Project
-        </button>
-      </div>
+            <input
+              type="text"
+              placeholder="Project name"
+            />
 
-      <div className="project-stats">
-        <div className="project-stat-card">
-          <h3>12</h3>
-          <p>Total Projects</p>
-        </div>
+            <input
+               type="text"
+  placeholder="Category"
+   value={projectCategory}
+onChange={(e) => setProjectCategory(e.target.value)}
+            />
 
-        <div className="project-stat-card">
-          <h3>5</h3>
-          <p>Active Projects</p>
-        </div>
+            <textarea
+               placeholder="Project description"
+  value={projectDescription}
+  onChange={(e) => setProjectDescription(e.target.value)}
+            ></textarea>
 
-        <div className="project-stat-card">
-          <h3>3</h3>
-          <p>Completed</p>
-        </div>
-      </div>
+            <div className="modal-actions">
+              <button onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
 
-      <div className="projects-list">
-        <h2>All Projects</h2>
-        <input
-  type="text"
-  placeholder="Search projects..."
-  value={search}
-  onChange={(e) => setSearch(e.target.value)}
-  className="project-search"
-/>
+              <button  
+               onClick={() => {
+    if (!projectName || !projectCategory) {
+      alert("Please enter project name and category");
+      return;
+    }
 
-        {projects
-  .filter((project) =>
-    project.name.toLowerCase().includes(search.toLowerCase())
-  )
-  .map((project, index) => (
-          <div className="project-card" key={index}>
-            <div className="project-info">
-              <h3>{project.name}</h3>
-              <p>{project.category}</p>
-            </div>
+    alert(`Project "${projectName}" created successfully!`);
 
-            <div className="project-progress">
-              <div className="progress-text">
-                <span>{project.status}</span>
-                <span>{project.progress}%</span>
-              </div>
-
-              <div className="progress-bar">
-                <div
-                  className="progress-fill"
-                  style={{ width: `${project.progress}%` }}
-                ></div>
-              </div>
-            </div>
-
-             <button
-  className="view-btn"
-  onClick={() =>
-    alert(
-      `Project: ${project.name}\nCategory: ${project.category}\nStatus: ${project.status}\nProgress: ${project.progress}%`
-    )
-  }
+    setProjectName("");
+    setProjectCategory("");
+    setProjectDescription("");
+    setShowModal(false);
+  }}
 >
-  View
-</button>
+                Create Project
+              </button>
+            </div>
           </div>
-        ))}
+        </div>
+      )}
+
+      <div className="projects-page">
+        <div className="projects-header">
+          <div>
+            <h1>Research Projects</h1>
+            <p>Manage and track your AI research projects.</p>
+          </div>
+
+          <button
+            className="new-project-btn"
+            onClick={() => setShowModal(true)}
+          >
+            + New Project
+          </button>
+        </div>
+
+        <div className="project-stats">
+          <div className="project-stat-card">
+            <h3>12</h3>
+            <p>Total Projects</p>
+          </div>
+
+          <div className="project-stat-card">
+            <h3>5</h3>
+            <p>Active Projects</p>
+          </div>
+
+          <div className="project-stat-card">
+            <h3>3</h3>
+            <p>Completed</p>
+          </div>
+        </div>
+
+        <div className="projects-list">
+          <h2>All Projects</h2>
+
+          <input
+            type="text"
+            placeholder="Search projects..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="project-search"
+          />
+
+          {filteredProjects.map((project, index) => (
+            <div className="project-card" key={index}>
+              <div className="project-info">
+                <h3>{project.name}</h3>
+                <p>{project.category}</p>
+              </div>
+
+              <div className="project-progress">
+                <div className="progress-text">
+                  <span>{project.status}</span>
+                  <span>{project.progress}%</span>
+                </div>
+
+                <div className="progress-bar">
+                  <div
+                    className="progress-fill"
+                    style={{ width: `${project.progress}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              <button
+                className="view-btn"
+                onClick={() =>
+                  alert(
+                    `Project: ${project.name}\nCategory: ${project.category}\nStatus: ${project.status}\nProgress: ${project.progress}%`
+                  )
+                }
+              >
+                View
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
-export default Projects; 
+export default Projects;
