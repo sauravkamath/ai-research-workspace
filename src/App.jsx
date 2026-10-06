@@ -1,7 +1,11 @@
  import { useState } from "react";
 import "./App.css";
-
 import Projects from "./pages/Projects";
+import Dataset from "./pages/Dataset";
+ import Model from "./pages/Model";
+ import Experiment from "./pages/Experiment";
+ import ResearchNotes from "./pages/ResearchNotes";
+ 
 function App() {
     const [currentPage, setCurrentPage] = useState("dashboard");
   return (
@@ -14,24 +18,62 @@ function App() {
         </div>
 
         <nav>
-          <a className="active">Dashboard</a>
-          <a onClick={() => setCurrentPage("projects")}>Projects</a>
-          <a>Datasets</a>
-          <a>Models</a>
-          <a>Experiments</a>
-          <a>Research Notes</a>
+           <a
+  className={currentPage === "dashboard" ? "active" : ""}
+  onClick={() => setCurrentPage("dashboard")}
+>
+  Dashboard
+</a>
+           <a
+  className={currentPage === "projects" ? "active" : ""}
+  onClick={() => setCurrentPage("projects")}
+>
+  Projects
+</a>
+            <a
+  className={currentPage === "dataset" ? "active" : ""}
+  onClick={() => setCurrentPage("dataset")}
+>
+  Datasets
+</a>
+           <a
+  className={currentPage === "models" ? "active" : ""}
+  onClick={() => setCurrentPage("models")}
+>
+  Models
+</a>
+          <a
+  className={currentPage === "experiments" ? "active" : ""}
+  onClick={() => setCurrentPage("experiments")}
+>
+  Experiments
+</a>
+           <a
+  className={currentPage === "researchNotes" ? "active" : ""}
+  onClick={() => setCurrentPage("researchNotes")}
+>
+  Research Notes
+</a>
         </nav>
         <div className="sidebar-bottom">
           <a>Settings</a>
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="main">
-{currentPage === "projects" ? (
+       {/* Main Content */}
+<main className="main">
+
+   {currentPage === "projects" ? (
   <Projects />
+ ) : currentPage === "models" ? (
+  <Model />
+ ) : currentPage === "experiments" ? (
+  <Experiment />
+) : currentPage === "researchNotes" ? (
+  <ResearchNotes />
 ) : (
-  <>
+    <>
+      {/* yahan tumhara pura Dashboard code hai */}
         {/* Header */}
         <header className="header">
           <div>
