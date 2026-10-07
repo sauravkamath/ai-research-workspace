@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Projects.css";
 
 function Projects() {
   const [search, setSearch] = useState("");
@@ -60,10 +61,12 @@ const handleCreateProject = () => {
             <h2>Create New Project</h2>
             <p>Start a new AI research project.</p>
 
-            <input
-              type="text"
-              placeholder="Project name"
-            />
+             <input
+  type="text"
+  placeholder="Project name"
+  value={projectName}
+  onChange={(e) => setProjectName(e.target.value)}
+/>
 
             <input
                type="text"
