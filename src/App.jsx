@@ -5,10 +5,17 @@ import Dataset from "./pages/Dataset";
  import Model from "./pages/Model";
  import Experiment from "./pages/Experiment";
  import ResearchNotes from "./pages/ResearchNotes";
- 
+ import Login from "./pages/Login";
+  
 function App() {
-    const [currentPage, setCurrentPage] = useState("dashboard");
-  return (
+     const [currentPage, setCurrentPage] = useState("dashboard");
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+if (!isLoggedIn) {
+  return <Login onLogin={() => setIsLoggedIn(true)} />;
+}
+
+return (
     <div className="app">
 
       {/* Sidebar */}
